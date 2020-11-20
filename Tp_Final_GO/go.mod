@@ -2,4 +2,9 @@ module Tp_Final_GO
 
 go 1.15
 
-require gopkg.in/yaml.v2 v2.3.0
+require (
+	github.com/go-sql-driver/mysql v1.5.0 // indirect
+	github.com/jmoiron/sqlx v1.2.0
+	github.com/mattn/go-sqlite3 v1.14.5
+	gopkg.in/yaml.v3 v3.0.0-20200615113413-eeeca48fe776
+)
