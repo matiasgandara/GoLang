@@ -13,7 +13,7 @@ type Message struct {
 }
 
 //ChatService...
-type ChatService interface {
+type Service interface {
 	AddMessage(Message) error
 	FindByID(int) *Message
 	FindAll() []*Message
@@ -25,7 +25,7 @@ type service struct {
 }
 
 //New...
-func New(db *sqlx.DB, c *config.Config) (ChatService, error) {
+func New(db *sqlx.DB, c *config.Config) (Service, error) {
 	return service{db, c}, nil
 }
 
@@ -38,6 +38,8 @@ func (s service) FindByID(ID int) *Message {
 
 func (s service) FindAll() []*Message {
 	var list []*Message
-	s.db.Select(&list, "SELECT * FROM message")
+	if err := s.db.Select(&list, "SELECT * FROM messages"); err != nil {
+		panic(err)
+	}
 	return list
 }
