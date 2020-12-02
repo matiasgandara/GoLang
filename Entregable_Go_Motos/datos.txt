@@ -1,0 +1,32 @@
+CREATE IF NOT EXISTS  motos (
+    id integer NOT NULL CONSTRAINT motos_pk PRIMARY KEY AUTOINCREMENT,
+	patente varchar(6) NOT NULL,
+    modelo integer NOT NULL,
+	nombre varchar(30) NOT NULL,
+    cilindrada integer NOT NULL,
+	color varchar(30) NOT NULL,
+);
+
+Aca va el codigo pibot... solo utilizado brevemente
+
+func createSchema(db *sqlx.DB) error {
+	schema := `CREATE IF NOT EXISTS  motos (
+    id integer NOT NULL CONSTRAINT motos_pk PRIMARY KEY AUTOINCREMENT,
+	patente varchar(6) NOT NULL,
+    modelo integer NOT NULL,
+	nombre varchar(30) NOT NULL,
+    cilindrada integer NOT NULL,
+	color varchar(30) NOT NULL,
+    );`
+	// execute query on server
+	_, err := db.Exec(schema)
+	if err != nil {
+		return err
+	}
+
+	//or, you can use MustExec, which panics on error
+	insertMoto := `INSERT INTO motos (patente, modelo, nombre, cilindrada, color) VALUES(?,?,?,?,?)`
+	s := fmt.Sprintf("ABC123",2015,"Tornado",250,"azul")
+	db.MustExec(insertMoto, s)
+	return nil
+}
