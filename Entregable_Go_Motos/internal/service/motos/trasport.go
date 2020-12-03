@@ -65,8 +65,9 @@ func makeEndpoints(s Service) []*endpoint {
 
 func getAll(s Service) gin.HandlerFunc {
 	return func(c *gin.Context) {
+		m, _ := s.FindAll()
 		c.JSON(http.StatusOK, gin.H{
-			"motos": s.FindAll(),
+			"motos": m,
 		})
 	}
 }
@@ -78,7 +79,7 @@ func getOne(s Service) gin.HandlerFunc {
 		if err != nil {
 			panic(err)
 		}
-		f := s.FindByID(id)
+		f, err := s.FindByID(id)
 		m := http.StatusOK
 		if f == nil {
 			m = http.StatusNotFound
@@ -98,7 +99,7 @@ func create(s Service) gin.HandlerFunc {
 		}
 		s.AddMoto(m)
 		c.JSON(http.StatusCreated, gin.H{
-			"message": "Moto eliminada",
+			"message": "Moto creada",
 		})
 	}
 }
@@ -132,7 +133,7 @@ func delete(s Service) gin.HandlerFunc {
 		}
 		s.Delete(id)
 		c.JSON(http.StatusOK, gin.H{
-			"message": "ID " + i + " deleted",
+			"message": "ID " + i + " eliminada",
 		})
 	}
 }

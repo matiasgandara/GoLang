@@ -25,11 +25,11 @@ func NewMoto(ID int, Patente string, Modelo int,
 
 // Service...
 type Service interface {
-	AddMoto(Moto)
-	FindByID(int) *Moto
-	FindAll() []*Moto
-	Delete(int)
-	Update(Moto)
+	AddMoto(Moto) error
+	FindByID(int) (*Moto, error)
+	FindAll() ([]*Moto, error)
+	Delete(int) error
+	Update(Moto) error
 }
 
 type service struct {
@@ -43,53 +43,55 @@ func New(db *sqlx.DB, c *config.Config) (Service, error) {
 }
 
 // AddMoto ...
-func (s service) AddMoto(m Moto) {
+func (s service) AddMoto(m Moto) error {
 	query := `INSERT INTO motos (
 		patente, modelo, nombre, cilindrada, color) VALUES (?, ?, ?, ?, ?)`
 
 	_, err := s.db.Exec(query, m.Patente, m.Modelo, m.Nombre, m.Cilindrada, m.Color)
 
 	if err != nil {
-		panic(err)
+		return err
 	}
+	return nil
 }
 
 // FindByID ...
-func (s service) FindByID(ID int) *Moto {
+func (s service) FindByID(ID int) (*Moto, error) {
 	var f []*Moto
 	if err := s.db.Select(&f, "SELECT * FROM motos WHERE id = ?", ID); err != nil {
-		panic(err)
+		return nil, err
 	}
 
 	if len(f) > 0 {
-		return f[0]
+		return f[0], nil
 	} else {
-		return nil
+		return nil, nil
 	}
 }
 
 // FindAll ...
-func (s service) FindAll() []*Moto {
+func (s service) FindAll() ([]*Moto, error) {
 	var list []*Moto
 	if err := s.db.Select(&list, "SELECT * FROM motos"); err != nil {
-		panic(err)
+		return nil, err
 	}
-	return list
+	return list, nil
 }
 
 // Delete ...
-func (s service) Delete(ID int) {
+func (s service) Delete(ID int) error {
 	query := "DELETE FROM motos WHERE id = ?"
 
 	_, err := s.db.Exec(query, ID)
 
 	if err != nil {
-		panic(err)
+		return err
 	}
+	return nil
 }
 
 // Update ...
-func (s service) Update(m Moto) {
+func (s service) Update(m Moto) error {
 	query := `UPDATE motos 
 		SET patente = ?, modelo = ?, nombre = ?, cilindrada = ?, color = ? 
 		WHERE id = ?`
@@ -100,6 +102,7 @@ func (s service) Update(m Moto) {
 		m.Modelo, m.Nombre, m.Cilindrada, m.Color, m.ID)
 
 	if err != nil {
-		panic(err)
+		return err
 	}
+	return nil
 }

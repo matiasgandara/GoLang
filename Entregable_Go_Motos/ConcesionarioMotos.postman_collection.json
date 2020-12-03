@@ -1,0 +1,119 @@
+{
+	"info": {
+		"_postman_id": "33f073c2-715f-4715-ab65-92e44791a083",
+		"name": "ConcesionarioMotos",
+		"description": "CRUD de cocesionario",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "Mostrar Motos",
+			"protocolProfileBehavior": {
+				"disableBodyPruning": true
+			},
+			"request": {
+				"method": "GET",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \r\n            \"Patente\": \"PPP666\",\r\n            \"Modelo\": 2018,\r\n            \"Nombre\": \"ZAnelita\",\r\n            \"Cilindrada\": 50,\r\n            \"Color\": \"Gris\"\r\n        \r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:8080/motos",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"motos"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Cargar Moto",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \r\n            \"Patente\": \"EAE666\",\r\n            \"Modelo\": 1918,\r\n            \"Nombre\": \"TRunker\",\r\n            \"Cilindrada\": 500,\r\n            \"Color\": \"Pink\"\r\n        \r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:8080/motos",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"motos"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Eliminar Moto",
+			"request": {
+				"method": "PUT",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \r\n            \"Patente\": \"PPP666\",\r\n            \"Modelo\": 300,\r\n            \"Nombre\": \"Metalica\",\r\n            \"Cilindrada\": 50,\r\n            \"Color\": \"Gris\"\r\n        \r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:8080/motos/4",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"motos",
+						"4"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Eliminar Moto",
+			"request": {
+				"method": "DELETE",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:8080/motos/5",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"motos",
+						"5"
+					]
+				}
+			},
+			"response": []
+		}
+	],
+	"protocolProfileBehavior": {}
+}
